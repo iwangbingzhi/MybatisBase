@@ -1,5 +1,6 @@
 package com.wbz.po;
 
+
 import java.util.Date;
 
 public class User {
@@ -7,7 +8,15 @@ public class User {
     private String username;
     private String sex;
     private Date birthday;
-    private String adress;
+    private String address;
+
+    public Date getBirthday() {
+        return birthday;
+    }
+
+    public void setBirthday(Date birthday) {
+        this.birthday = birthday;
+    }
 
     public int getId() {
         return id;
@@ -33,20 +42,14 @@ public class User {
         this.sex = sex;
     }
 
-    public Date getBirthday() {
-        return birthday;
+
+
+    public String getAddress() {
+        return address;
     }
 
-    public void setBirthday(Date birthday) {
-        this.birthday = birthday;
-    }
-
-    public String getAdress() {
-        return adress;
-    }
-
-    public void setAdress(String adress) {
-        this.adress = adress;
+    public void setAddress(String adress) {
+        this.address = adress;
     }
 
     @Override
@@ -56,7 +59,7 @@ public class User {
                 ", username='" + username + '\'' +
                 ", sex='" + sex + '\'' +
                 ", birthday=" + birthday +
-                ", adress='" + adress + '\'' +
+                ", adress='" + address + '\'' +
                 '}';
     }
 }
