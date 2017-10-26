@@ -10,7 +10,7 @@ public interface UserDao {
     public void insertUser(User user) throws Exception;
 
     //删除用户信息
-    public void deleteUser(User user) throws Exception;
+    public void deleteUser(int id) throws Exception;
 
 
 

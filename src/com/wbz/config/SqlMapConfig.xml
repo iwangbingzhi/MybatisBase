@@ -19,6 +19,7 @@
     </environments>
     <!--加载映射文件-->
     <mappers>
-        <mapper resource="com/wbz/config/User.xml"/>
+        <!--<mapper resource="com/wbz/config/User.xml"/>-->
+        <mapper resource="com/wbz/config/UserMapper.xml"/>
     </mappers>
 </configuration>
