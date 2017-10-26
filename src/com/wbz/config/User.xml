@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--sql隔离，对sql进行分类化管理
+使用Mapper代理方法开发，namespace有特殊的重要作用
+-->
+<mapper namespace="test">
+    <!--在映射文件中配置很多的sql语句-->
+    <!--通过select执行数据库的查询，id：表示映射文件中的sql
+    称之为statement的id,将sql语句封装到MappedStatement对象中，所以称之为Statement的id
+    parameterType：指定输入参数的类型
+    #{}表示一个占位符
+    #{id}:其中的Id表示接收输入的参数，参数名称就是id，如果输入的参数是ian但类型，#{}中的参数名可以任意，可以是value或者是其他的名称都可以
+    resultType:指定Sql的输出结果的类型，select指定resultType表示将单条记录映射成java对象
+    -->
+    <select id="findUserById" parameterType="int" resultType="com.wbz.po.User">
+        SELECT * FROM USER WHERE id = #{id}
+    </select>
+
+    <!--根据用户名模糊查询用户信息 可能返回多条
+        ${}:表示拼接sql串，将接收到的参数的内容不加任何修饰拼接在sql中
+        使用${}拼接sql，引起sql注入
+        ${value}接收输入参数的内容，如果传入类型是简单类型，${}中只能使用value
+    -->
+    <select id="findUserByName" parameterType="String" resultType="com.wbz.po.User">
+        SELECT * FROM USER  WHERE username LIKE '%${value}%'
+    </select>
+</mapper>

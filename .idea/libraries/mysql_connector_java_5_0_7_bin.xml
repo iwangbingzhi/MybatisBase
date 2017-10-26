@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="mysql-connector-java-5.0.7-bin">
+    <CLASSES>
+      <root url="jar://F:/javaweb类库/hibernateAndJdbc/mysql-connector-java-5.0.7-bin.jar!/" />
+      <root url="file://F:/javaweb类库/mybatis-3.2.7" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+    <jarDirectory url="file://F:/javaweb类库/mybatis-3.2.7" recursive="false" />
+  </library>
+</component>
