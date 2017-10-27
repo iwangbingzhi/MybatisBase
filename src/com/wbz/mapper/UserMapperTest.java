@@ -1,6 +1,8 @@
 package com.wbz.mapper;
 
 import com.wbz.po.User;
+import com.wbz.po.UserCustomer;
+import com.wbz.po.UserQueryVo;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -48,5 +50,38 @@ public class UserMapperTest {
         List<User> list = userMapper.findUserByName("小");
         System.out.println(list);
         sqlSession.close();
+    }
+    //用户信息中和查询
+    @Test
+    public void testfindUserList() throws Exception{
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        UserMapper userMapper = sqlSession.getMapper(UserMapper.class);
+
+        //创建包装对象 设置查询条件
+        UserQueryVo userQueryVo = new UserQueryVo();
+        UserCustomer userCustomer = new UserCustomer();
+        userCustomer.setId(2);
+        userCustomer.setUsername("测试");
+        userQueryVo.setUserCustomer(userCustomer);
+
+        List<UserCustomer> list = userMapper.findUserList(userQueryVo);
+        System.out.println(list);
+    }
+
+    //用户信息综合查询总数
+    @Test
+    public void testfindUserCount() throws Exception{
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        UserMapper userMapper = sqlSession.getMapper(UserMapper.class);
+
+        //创建包装对象 设置查询条件
+        UserQueryVo userQueryVo = new UserQueryVo();
+        UserCustomer userCustomer = new UserCustomer();
+        userCustomer.setSex("男");
+        userCustomer.setUsername("王");
+        userQueryVo.setUserCustomer(userCustomer);
+
+        int count = userMapper.findUserCount(userQueryVo);
+        System.out.println(count);
     }
 }

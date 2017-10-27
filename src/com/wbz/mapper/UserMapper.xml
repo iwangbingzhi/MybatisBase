@@ -14,7 +14,7 @@
     #{id}:其中的Id表示接收输入的参数，参数名称就是id，如果输入的参数是ian但类型，#{}中的参数名可以任意，可以是value或者是其他的名称都可以
     resultType:指定Sql的输出结果的类型，select指定resultType表示将单条记录映射成java对象
     -->
-    <select id="findUserById" parameterType="int" resultType="com.wbz.po.User">
+    <select id="findUserById" parameterType="int" resultType="user">
         SELECT * FROM USER WHERE id = #{value}
     </select>
 
@@ -71,4 +71,14 @@
         sex=#{sex},address=#{address}
         where id=#{id}
     </update>
+
+    <!--用户信息复杂查询-->
+    <select id="findUserList" parameterType="userqueryvo" resultType="UserCustomer">
+        select * from user where user.sex=#{userCustomer.sex} and user.username like "%${userCustomer.username}%"
+    </select>
+
+    <!--用户信息综合查询总数-->
+    <select id="findUserCount" resultType="int" parameterType="userqueryvo">
+        select count(*) from user where user.sex=#{userCustomer.sex} and user.username like "%${userCustomer.username}%"
+    </select>
 </mapper>
