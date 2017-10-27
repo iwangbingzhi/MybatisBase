@@ -81,4 +81,28 @@
     <select id="findUserCount" resultType="int" parameterType="userqueryvo">
         select count(*) from user where user.sex=#{userCustomer.sex} and user.username like "%${userCustomer.username}%"
     </select>
+    
+    <!--使用resultmap进行输出映射
+    resultMap:指定定义的resultmap的id,如果这个resultMap在其他的mapper文件中，前面需要加namespace
+    -->
+    <select id="findUserByIdResultMap" parameterType="int" resultMap="userResultMap">
+        SELECT id id_,username username_ FROM USER WHERE id = #{value}
+    </select>
+<!--    定义resultmap 将 SELECT id id_,username username_ FROM USER和user类中的属性作一个映射关系
+        type:resultmap最终映射java对象类型，可以使用别名
+        id：对resultmap的唯一标识
+-->
+    <resultMap id="userResultMap" type="user">
+        <!--
+        id：表示查询结果集中唯一标识
+        culumn:查询出来的列名
+        property:type指定的pojo类型中的属性名
+        建立column和property作一个映射关系
+        -->
+        <id column="id_" property="id"/>
+
+        <!--result对普通列的映射定义-->
+        <result column="username_" property="username"/>
+    </resultMap>
+
 </mapper>

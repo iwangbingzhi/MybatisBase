@@ -84,4 +84,20 @@ public class UserMapperTest {
         int count = userMapper.findUserCount(userQueryVo);
         System.out.println(count);
     }
+
+    //使用resultMap进行输出
+    @Test
+    public void testfindUserByIdResultMap() throws Exception {
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+
+        //创建UserMapper对象，mybatis自动生成mapper代理对象
+        UserMapper userMapper = sqlSession.getMapper(UserMapper.class);
+
+        //调用userMapper方法
+        User user = userMapper.findUserByIdResultMap(5);
+
+        System.out.println(user);
+        sqlSession.close();
+    }
+
 }
