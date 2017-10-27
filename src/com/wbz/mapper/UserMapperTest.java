@@ -12,6 +12,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.Assert.*;
@@ -60,8 +61,15 @@ public class UserMapperTest {
         //创建包装对象 设置查询条件
         UserQueryVo userQueryVo = new UserQueryVo();
         UserCustomer userCustomer = new UserCustomer();
-        userCustomer.setId(2);
-        userCustomer.setUsername("测试");
+        //userCustomer.setSex("男");
+        userCustomer.setUsername("小");
+        //传入多个id
+        List<Integer> ids = new ArrayList<Integer>();
+        ids.add(3);
+        ids.add(5);
+        ids.add(6);
+        //将ids通过userQueryVo传入statement中
+        userQueryVo.setIds(ids);
         userQueryVo.setUserCustomer(userCustomer);
 
         List<UserCustomer> list = userMapper.findUserList(userQueryVo);

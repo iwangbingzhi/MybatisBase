@@ -72,15 +72,64 @@
         where id=#{id}
     </update>
 
+
+    <!--定义sql片段
+    id：sql片段的唯一表示符
+
+    经验：是基于单表来定义sql片段，这样这个sql片段可重用性才高,并且sql片段中不要包含where
+    -->
+    <sql id="queryuserwhere">
+            <if test="userCustomer!=null">
+                <if test="userCustomer.sex!=null and userCustomer.sex!=''">
+                    and user.sex = #{userCustomer.sex}
+                </if>
+                <if test="userCustomer.username!=null and userCustomer.username!=''">
+                    and user.username like '%${userCustomer.username}%'
+                </if>
+                <if test="ids!=null">
+                    <!--使用foreach遍历传入的ids
+                        collection:指定输入对象的集合属性
+                        item：每次遍历的对象名
+                        open:开始遍历时拼接的sql串
+                        close:结束遍历时拼接的串
+                        separator:遍历的两个对象中需要拼接的串
+                    -->
+                        <!--使用下边的串拼接 and(id=1 or id=10 or id=16)-->
+            <!--        <foreach collection="ids" item="user_id" open="and(" close=")" separator="or">
+                        &lt;!&ndash;每个遍历需要拼接的串&ndash;&gt;
+                        id=#{user_id}
+                    </foreach>-->
+
+            <!--实现 and id in (1,10,16)拼接-->
+                    <foreach collection="ids" item="user_id" open="and id in(" close=")" separator=",">
+                        #{user_id}
+                    </foreach>
+                </if>
+            </if>
+    </sql>
+
     <!--用户信息复杂查询-->
     <select id="findUserList" parameterType="userqueryvo" resultType="UserCustomer">
-        select * from user where user.sex=#{userCustomer.sex} and user.username like "%${userCustomer.username}%"
+        <!--动态sql       where可以自动去掉条件中的第一个and-->
+        SELECT * FROM USER
+
+        <!-- 引用sql片段id 如果refid不在本mapper中，需要在前边加上namespace -->
+        <where>
+            <include refid="queryuserwhere"/>
+            <!--这里还可以应用其他的sql片段-->
+        </where>
     </select>
 
     <!--用户信息综合查询总数-->
-    <select id="findUserCount" resultType="int" parameterType="userqueryvo">
-        select count(*) from user where user.sex=#{userCustomer.sex} and user.username like "%${userCustomer.username}%"
+    <select id="findUserCount" parameterType="userqueryvo" resultType="int">
+        select count(*) from user
+        <!-- 引用sql片段id 如果refid不在本mapper中，需要在前边加上namespace -->
+        <where>
+            <include refid="queryuserwhere"/>
+            <!--这里还可以应用其他的sql片段-->
+        </where>
     </select>
+
     
     <!--使用resultmap进行输出映射
     resultMap:指定定义的resultmap的id,如果这个resultMap在其他的mapper文件中，前面需要加namespace
