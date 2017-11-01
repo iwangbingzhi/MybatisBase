@@ -95,15 +95,15 @@
                         separator:遍历的两个对象中需要拼接的串
                     -->
                         <!--使用下边的串拼接 and(id=1 or id=10 or id=16)-->
-            <!--        <foreach collection="ids" item="user_id" open="and(" close=")" separator="or">
-                        &lt;!&ndash;每个遍历需要拼接的串&ndash;&gt;
+                    <foreach collection="ids" item="user_id" open="and(" close=")" separator="or">
+                       <!--每个遍历需要拼接的串-->
                         id=#{user_id}
-                    </foreach>-->
+                    </foreach>
 
-            <!--实现 and id in (1,10,16)拼接-->
+            <!--实现 and id in (1,10,16)拼接
                     <foreach collection="ids" item="user_id" open="and id in(" close=")" separator=",">
                         #{user_id}
-                    </foreach>
+                    </foreach>-->
                 </if>
             </if>
     </sql>

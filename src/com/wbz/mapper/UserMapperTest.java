@@ -71,7 +71,6 @@ public class UserMapperTest {
         //将ids通过userQueryVo传入statement中
         userQueryVo.setIds(ids);
         userQueryVo.setUserCustomer(userCustomer);
-
         List<UserCustomer> list = userMapper.findUserList(userQueryVo);
         System.out.println(list);
     }
