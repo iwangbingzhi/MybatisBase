@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--sql隔离，对sql进行分类化管理
+使用Mapper代理方法开发，namespace有特殊的重要作用
+-->
+<mapper namespace="com.wbz.mapper.OrdersMapperCustomer">
+    <!--定义关联查询用户的resultmap
+        将整个查询结果映射到com.wbz.po.Orders中
+    -->
+    使用extends之后就不用配置重复的信息了
+    <resultMap id="findOrdersUserResultMap" type="com.wbz.po.Orders" extends="OrdersAndOrderDetailResultMap">
+            <!--配置映射的订单信息 column对应数据库中的唯一标识的列 property对象Orders.java中的id属性-->
+        <!--<id column="id" property="id"/>
+        <result column="user_id" property="userId"/>
+        <result column="number" property="number"/>
+        <result column="createtime" property="createtime"/>
+        <result column="note" property="note"/>-->
+
+        <!--配置映射的关联的用户信息-->
+        <!--
+        association用于映射关联查询单个对象的信息
+        property:要将关联查询的用户信息映射到Orders.java的哪个属性中
+        -->
+   <!--     <association property="user" javaType="com.wbz.po.User">
+            <id column="user_id" property="id"/>
+            <result column="username" property="username"/>
+            <result column="sex" property="sex"/>
+            <result column="address" property="address"/>
+        </association>-->
+    </resultMap>
+    <resultMap id="OrdersAndOrderDetailResultMap" type="com.wbz.po.Orders">
+        <id column="id" property="id"/>
+        <result column="user_id" property="userId"/>
+        <result column="number" property="number"/>
+        <result column="createtime" property="createtime"/>
+        <result column="note" property="note"/>
+
+        <association property="user" javaType="com.wbz.po.User">
+            <id column="user_id" property="id"/>
+            <result column="username" property="username"/>
+            <result column="sex" property="sex"/>
+            <result column="address" property="address"/>
+        </association>
+        <!--订单明细信息  一个订单关联查询除了多条明细，要使用collection进行映射
+        collection：对关联查询到的多条记录映射到集合对象中，
+        property：将关联的查询到多条记录映射到哪个属性中
+        ofType:指定映射到list属性中pojo的类型
+        -->
+        <collection property="orderdetails" ofType="com.wbz.po.Orderdetail">
+            <!--property要将订单明细的唯一标识映射到orderdetail的哪个属性-->
+            <id column="ordersdetailid" property="id"/>
+            <result column="items_id" property="itemsId"/>
+            <result column="items_num" property="itemsNum"/>
+            <result column="orders_id" property="ordersId"/>
+            <result/>
+        </collection>
+    </resultMap>
+    <!--查询订单关联查询用户信息 -->
+    <select id="findOrdersUser" resultType="com.wbz.po.OrdersCustomer">
+        SELECT orders.*,user.`username`,user.`sex`,user.`address` FROM orders,USER WHERE orders.`user_id` = user.id;
+    </select>
+    <!--查询订单关联查询用户信息 使用resultmap-->
+    <select id="findOrdersUserResultMap" resultMap="OrdersUserResultMap">
+        SELECT orders.*,user.`username`,user.`sex`,user.`address` FROM orders,USER WHERE orders.`user_id` = user.id;
+    </select>
+
+<!--    查询订单关联查询用户及订单明细，使用resultmap-->
+    <select id="findOrdersAndOrderDetailResultMap" resultMap="findOrdersAndOrderDetailResultMap">
+        SELECT orders.*,user.`username`,user.`sex`,user.`address`,orderdetail.`id` ordersdetailid,orderdetail.orders_id,orderdetail.items_num FROM orders,USER,orderdetail WHERE orders.`user_id` = user.id AND orders.`id`=orderdetail.`orders_id`;
+    </select>
+</mapper>
