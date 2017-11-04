@@ -14,5 +14,5 @@ public interface OrdersMapperCustomer {
     public List<Orders> findOrdersUserResultMap() throws Exception;
 
     //resultmap配置订单明细信息
-    public List<Orderdetail> findOrdersAndOrderDetailResultMap() throws Exception;
+    public List<Orders> findOrdersAndOrderDetailResultMap() throws Exception;
 }

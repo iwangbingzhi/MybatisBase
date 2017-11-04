@@ -49,5 +49,16 @@ public class OrdersMapperCustomerTest {
         sqlSession.close();
     }
 
-
+    @Test
+    public void testFindOrdersAndOrderDetailResultMap() throws Exception{
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        //创建代理对象
+        OrdersMapperCustomer ordersMapperCustomer = sqlSession.getMapper(OrdersMapperCustomer.class);
+        //调用mapper的方法
+        List<Orders> list = ordersMapperCustomer.findOrdersAndOrderDetailResultMap();
+        for (Orders l : list ) {
+            System.out.println(l);
+        }
+        sqlSession.close();
+    }
 }

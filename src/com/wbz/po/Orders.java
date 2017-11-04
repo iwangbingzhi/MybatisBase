@@ -14,12 +14,19 @@ public class Orders {
 
     private String note;
 
-
     //使用resultmap定义该user成员变量
     private User user;
 
     //订单明细
     private List<Orderdetail> orderdetails;
+
+    public List<Orderdetail> getOrderdetails() {
+        return orderdetails;
+    }
+
+    public void setOrderdetails(List<Orderdetail> orderdetails) {
+        this.orderdetails = orderdetails;
+    }
 
     public User getUser() {
         return user;
