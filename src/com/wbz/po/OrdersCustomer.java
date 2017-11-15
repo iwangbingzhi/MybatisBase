@@ -8,7 +8,6 @@ public class OrdersCustomer extends Orders {
     private String sex;
     private String address;
 
-
     public String getUsername() {
         return username;
     }

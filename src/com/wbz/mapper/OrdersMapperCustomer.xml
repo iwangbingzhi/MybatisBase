@@ -28,6 +28,7 @@
             <result column="username" property="username"/>
             <result column="sex" property="sex"/>
             <result column="address" property="address"/>
+            <result column="birthday" property="birthday"/>
         </association>
     </resultMap>
 
@@ -63,6 +64,7 @@
 
     <!--查询订单关联查询用户及订单明细，使用resultmap-->
     <select id="findOrdersAndOrderDetailResultMap" resultMap="OrdersAndOrderDetailResultMap">
-        SELECT orders.*,user.`username`,user.`sex`,user.`address`,orderdetail.`id` ordersdetailid,orderdetail.orders_id,orderdetail.items_num FROM orders,USER,orderdetail WHERE orders.`user_id` = user.id AND orders.`id`=orderdetail.`orders_id`;
+        SELECT orders.*,user.`username`,user.`sex`,user.`birthday`,user.`address`,orderdetail.`id` ordersdetailid,orderdetail.orders_id,orderdetail.items_num
+        FROM orders,USER,orderdetail WHERE orders.`user_id` = user.id AND orders.`id`=orderdetail.`orders_id`;
     </select>
 </mapper>
