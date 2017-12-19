@@ -6,10 +6,7 @@ mapper开发规范：
 2.mapper.java接口中的方法名和mapper.xml中statement一致
 3.mapper.java接口中的方法输入参数类型和mapper.xml中的statement的parametertype指定的类型一致
 4.mapper.java接口中的方法返回值类型和mapper.xml中statement的resulttype指定的类型一致
-
-
 */
-
 
 import com.wbz.po.User;
 import com.wbz.po.UserCustomer;

@@ -73,6 +73,7 @@ public class UserMapperTest {
         userQueryVo.setUserCustomer(userCustomer);
         List<UserCustomer> list = userMapper.findUserList(userQueryVo);
         System.out.println(list);
+
     }
 
     //用户信息综合查询总数
