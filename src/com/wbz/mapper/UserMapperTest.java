@@ -7,7 +7,6 @@ import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -15,7 +14,6 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.Assert.*;
 
 public class UserMapperTest {
     private SqlSessionFactory sqlSessionFactory;
@@ -34,7 +32,7 @@ public class UserMapperTest {
         UserMapper userMapper = sqlSession.getMapper(UserMapper.class);
 
         //调用userMapper方法
-        User user = userMapper.findUserById(5);
+        User user = userMapper.findUserById(1);
 
         System.out.println(user);
         sqlSession.close();
@@ -52,7 +50,7 @@ public class UserMapperTest {
         System.out.println(list);
         sqlSession.close();
     }
-    //用户信息中和查询
+    //用户信息综合查询
     @Test
     public void testfindUserList() throws Exception{
         SqlSession sqlSession = sqlSessionFactory.openSession();
@@ -73,7 +71,6 @@ public class UserMapperTest {
         userQueryVo.setUserCustomer(userCustomer);
         List<UserCustomer> list = userMapper.findUserList(userQueryVo);
         System.out.println(list);
-
     }
 
     //用户信息综合查询总数
@@ -102,10 +99,9 @@ public class UserMapperTest {
         UserMapper userMapper = sqlSession.getMapper(UserMapper.class);
 
         //调用userMapper方法
-        User user = userMapper.findUserByIdResultMap(5);
+        User user = userMapper.findUserByIdResultMap(1);
 
         System.out.println(user);
         sqlSession.close();
     }
-
 }

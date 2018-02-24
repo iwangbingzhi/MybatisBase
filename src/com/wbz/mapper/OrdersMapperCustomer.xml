@@ -51,7 +51,6 @@
     </resultMap>
 
 
-
     <!--查询订单关联查询用户信息 -->
     <select id="findOrdersUser" resultType="com.wbz.po.OrdersCustomer">
         SELECT orders.*,user.`username`,user.`sex`,user.`address` FROM orders,USER WHERE orders.`user_id` = user.id;

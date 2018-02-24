@@ -37,11 +37,11 @@
     <!--加载映射文件-->
     <mappers>
         <!--通过resource一次加载一个文件-->
-       <!-- <mapper resource="com/wbz/config/User.xml"/>
-        <mapper resource="com/wbz/config/UserMapper.xml"/>
--->
+        <!-- <mapper resource="com/wbz/config/User.xml"/>
+        <mapper resource="com/wbz/config/UserMapper.xml"/>-->
+
 <!--通过mapper接口加载映射文件，遵循一些规范，需要将mapper接口类名和mapper.xml映射文件名保持一致，并且是在一个目录中，而且是使用的mapper代理方法
-   <mapper class="com.wbz.mapper.UserMapper"/>-->
+        <mapper class="com.wbz.mapper.UserMapper"/>-->
 
 <!--批量加载mapper 指定mapper接口的包名,mabatis自动扫描包下面的所有mapper接口（推荐使用）-->
         <package name="com.wbz.mapper"/>

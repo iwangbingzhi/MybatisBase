@@ -153,5 +153,4 @@
         <!--result对普通列的映射定义-->
         <result column="username_" property="username"/>
     </resultMap>
-
 </mapper>

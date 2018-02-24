@@ -44,7 +44,6 @@ public class OrdersMapperCustomerTest {
         OrdersMapperCustomer ordersMapperCustomer = sqlSession.getMapper(OrdersMapperCustomer.class);
         //调用mapper的方法
         List<Orders> list = ordersMapperCustomer.findOrdersUserResultMap();
-
         System.out.println(list);
         sqlSession.close();
     }
@@ -56,9 +55,10 @@ public class OrdersMapperCustomerTest {
         OrdersMapperCustomer ordersMapperCustomer = sqlSession.getMapper(OrdersMapperCustomer.class);
         //调用mapper的方法
         List<Orders> list = ordersMapperCustomer.findOrdersAndOrderDetailResultMap();
-        for (Orders l : list ) {
-            System.out.println(l);
+        for (Orders o : list) {
+            System.out.println(o);
         }
+
         sqlSession.close();
     }
 }
