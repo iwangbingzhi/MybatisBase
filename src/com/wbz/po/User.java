@@ -2,6 +2,7 @@ package com.wbz.po;
 
 
 import java.util.Date;
+import java.util.List;
 
 public class User {
     private int id;
@@ -9,6 +10,18 @@ public class User {
     private String sex;
     private Date birthday;
     private String address;
+    //订单列表属性,将用户创建的订单映射到orderslist 查询用户及用户购买商品信息
+    private List<Orders> orderslist;
+
+
+    public List<Orders> getOrderslist() {
+        return orderslist;
+    }
+
+    public void setOrderslist(List<Orders> orderslist) {
+        this.orderslist = orderslist;
+    }
+
 
     public Date getBirthday() {
         return birthday;

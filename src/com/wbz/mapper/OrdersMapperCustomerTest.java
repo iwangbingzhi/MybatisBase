@@ -2,6 +2,7 @@ package com.wbz.mapper;
 
 import com.wbz.po.Orders;
 import com.wbz.po.OrdersCustomer;
+import com.wbz.po.User;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -59,6 +60,17 @@ public class OrdersMapperCustomerTest {
             System.out.println(o);
         }
 
+        sqlSession.close();
+    }
+    //查询用户购买的商品信息
+    @Test
+    public void testfindUserAndItemsResultMap() throws Exception{
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        //创建代理对象
+        OrdersMapperCustomer ordersMapperCustomer = sqlSession.getMapper(OrdersMapperCustomer.class);
+        //调用mapper的方法
+        List<User> list = ordersMapperCustomer.findUserAndItemsResultMap();
+        System.out.println(list);
         sqlSession.close();
     }
 }

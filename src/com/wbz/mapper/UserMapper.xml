@@ -11,7 +11,7 @@
     称之为statement的id,将sql语句封装到MappedStatement对象中，所以称之为Statement的id
     parameterType：指定输入参数的类型
     #{}表示一个占位符
-    #{id}:其中的Id表示接收输入的参数，参数名称就是id，如果输入的参数是ian但类型，#{}中的参数名可以任意，可以是value或者是其他的名称都可以
+    #{id}:其中的Id表示接收输入的参数，参数名称就是id，如果输入的参数是int类型，#{}中的参数名可以任意，可以是value或者是其他的名称都可以
     resultType:指定Sql的输出结果的类型，select指定resultType表示将单条记录映射成java对象
     -->
     <select id="findUserById" parameterType="int" resultType="user">
@@ -37,7 +37,6 @@
          -->
         <selectKey order="AFTER" keyProperty="id" resultType="int">
             SELECT LAST_INSERT_ID()
-
         </selectKey>
 
         <!--使用mysql uuid生成主键

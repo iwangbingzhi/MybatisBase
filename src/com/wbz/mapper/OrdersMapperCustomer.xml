@@ -11,14 +11,15 @@
     -->
 
     <resultMap id="OrdersUserResultMap" type="com.wbz.po.Orders">
-            <!--配置映射的订单信息 column对应数据库中的唯一标识的列 property对象Orders.java中的id属性-->
+            <!--配置映射的订单信息 column对应数据库中的唯一标识的列
+            如果有多个列组成唯一标示，就需要配置多个id,property对象Orders.java中的id属性-->
         <id column="id" property="id"/>
         <result column="user_id" property="userId"/>
         <result column="number" property="number"/>
         <result column="createtime" property="createtime"/>
         <result column="note" property="note"/>
 
-        <!--配置映射的关联的用户信息-->
+        <!--用于配置映射的关联的用户信息-->
         <!--
         association用于映射关联查询单个对象的信息
         property:要将关联查询的用户信息映射到Orders.java的哪个属性中
@@ -33,7 +34,7 @@
     </resultMap>
 
 
-    <!--使用extends之后就不用配置重复的信息了-->
+    <!--使用extends之后就不用配置重复的订单信息和用户信息-->
     <resultMap id="OrdersAndOrderDetailResultMap" type="com.wbz.po.Orders" extends="OrdersUserResultMap">
 
         <!--订单明细信息  一个订单关联查询除了多条明细，要使用collection进行映射
@@ -49,6 +50,47 @@
             <result column="orders_id" property="ordersId"/>
         </collection>
     </resultMap>
+    <!--查询用户及购买的商品信息-->
+    <resultMap id="UserAndItemsResultMap" type="com.wbz.po.User">
+        <!--用户信息-->
+        <id column="user_id" property="id"/>
+        <result column="username" property="username"/>
+        <result column="sex" property="sex"/>
+        <result column="address" property="address"/>
+
+        <!--订单信息
+        一个用户对应多个订单，使用collection映射
+        -->
+        <collection property="orderslist" ofType="com.wbz.po.Orders">
+            <id column="id" property="id"/>
+            <result column="user_id" property="userId"/>
+            <result column="number" property="number"/>
+            <result column="createtime" property="createtime"/>
+            <result column="note" property="note"/>
+            <!--订单明细
+            一个订单包括多个明细
+            -->
+            <collection property="orderdetails" ofType="com.wbz.po.Orderdetail">
+                <id column="ordersdetailid" property="id"/>
+                <result column="items_id" property="itemsId"/>
+                <result column="items_num" property="itemsNum"/>
+                <result column="orders_id" property="ordersId"/>
+
+                <!--商品信息
+                一个订单明细对应一个商品
+                -->
+                <association property="items" javaType="com.wbz.po.Items">
+                        <id column="id" property="id"/>
+                        <result column="item_name" property="name"/>
+                        <result column="item_price" property="price"/>
+                        <result column="item_detail" property="detail"/>
+                </association>
+            </collection>
+
+            
+        </collection>
+
+    </resultMap>
 
 
     <!--查询订单关联查询用户信息 -->
@@ -61,9 +103,16 @@
         SELECT orders.*,user.`username`,user.`sex`,user.`address` FROM orders,USER WHERE orders.`user_id` = user.id;
     </select>
 
-    <!--查询订单关联查询用户及订单明细，使用resultmap-->
+    <!--查询订单关联查询用户及订单明细，使用resultmap   使用resulttype就会出现重复的查询结果-->
     <select id="findOrdersAndOrderDetailResultMap" resultMap="OrdersAndOrderDetailResultMap">
         SELECT orders.*,user.`username`,user.`sex`,user.`birthday`,user.`address`,orderdetail.`id` ordersdetailid,orderdetail.orders_id,orderdetail.items_num
         FROM orders,USER,orderdetail WHERE orders.`user_id` = user.id AND orders.`id`=orderdetail.`orders_id`;
+    </select>
+
+    <!--查询用户及用户购买商品信息-->
+    <select id="findUserAndItemsResultMap" resultMap="UserAndItemsResultMap">
+        SELECT orders.*,user.`username`,user.`sex`,user.`birthday`,user.`address`,orderdetail.`id` ordersdetailid,orderdetail.orders_id,orderdetail.items_num,items.`name` items_name,items.`price`items_price,items.`detail` items_detail
+        FROM orders,USER,orderdetail,items WHERE orders.`user_id` = user.id AND orders.`id`=orderdetail.`orders_id`
+        AND orderdetail.`items_id`=items.`id`;
     </select>
 </mapper>

@@ -14,10 +14,11 @@ public class Orders {
 
     private String note;
 
-    //使用resultmap定义该user成员变量
+    //使用resultmap的时候定义该user成员变量
     private User user;
 
     //订单明细
+    // 最终会将订单信息映射到Order中，订单所对应的订单明细映射到orders中的orderdetail属性中，最终就不会出现重复的查询结果
     private List<Orderdetail> orderdetails;
 
     public List<Orderdetail> getOrderdetails() {

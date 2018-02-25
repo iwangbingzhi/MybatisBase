@@ -8,7 +8,16 @@ public class Orderdetail {
     private Integer itemsId;
 
     private Integer itemsNum;
+    //将订单明细映射的商品映射到items 明细所对应的商品
+    private Items items;
 
+    public Items getItems() {
+        return items;
+    }
+
+    public void setItems(Items items) {
+        this.items = items;
+    }
 
     public Integer getId() {
         return id;

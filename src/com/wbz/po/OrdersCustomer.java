@@ -2,7 +2,7 @@ package com.wbz.po;
 
 
 //订单的扩展类，通过此类能够映射订单和用户的查询结果，让此类继承包括字段较多的pojo类
-
+//使用resulttype的时候，创建此类集成自orders类
 public class OrdersCustomer extends Orders {
     private String username;
     private String sex;

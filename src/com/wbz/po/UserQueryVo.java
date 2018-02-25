@@ -18,6 +18,9 @@ public class UserQueryVo {
         this.ids = ids;
     }
 
+
+
+
     private UserCustomer userCustomer;
 
     public UserCustomer getUserCustomer() {
