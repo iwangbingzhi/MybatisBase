@@ -115,4 +115,31 @@
         FROM orders,USER,orderdetail,items WHERE orders.`user_id` = user.id AND orders.`id`=orderdetail.`orders_id`
         AND orderdetail.`items_id`=items.`id`;
     </select>
+
+
+
+<!--延迟加载的使用
+mybatis默认没有开启延迟加载，需要在sqlmap.xml的setting中开启
+-->
+    <!--延迟加载的resultmap-->
+    <resultMap id="OrdersUserLazyLoadingResultMap" type="com.wbz.po.Orders">
+        <id column="id" property="id"/>
+        <result column="user_id" property="userId"/>
+        <result column="number" property="number"/>
+        <result column="createtime" property="createtime"/>
+        <result column="note" property="note"/>
+
+        <!--实现对用户信息的延迟加载
+        select:指定延迟加载需要执行的sql语句的id(根据user_id查询用户信息的语句)
+        column:订单信息中关联用户信息查询的列，是user_id
+        因为这个mapper不在本mapper中，需要加上namespace
+        -->
+        <association property="user" column="user_id" select="com.wbz.mapper.UserMapper.findUserById" javaType="com.wbz.po.User">
+        </association>
+    </resultMap>
+
+    <!--查询订单关联查询用户，用户信息需要延迟加载-->
+    <select id="findOrdersUserLazyLoading" resultMap="OrdersUserLazyLoadingResultMap">
+        select * from orders
+    </select>
 </mapper>

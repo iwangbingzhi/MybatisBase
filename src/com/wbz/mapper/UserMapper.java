@@ -35,4 +35,7 @@ public interface UserMapper {
 
     //根据id查询用户信息，然后使用resultMap输出
     public User findUserByIdResultMap(int id) throws Exception;
+
+    //更新用户
+    public void updateUser(User user) throws Exception;
 }
