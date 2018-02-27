@@ -6,8 +6,11 @@
 使用Mapper代理方法开发，namespace有特殊的重要作用
 -->
 <mapper namespace="com.wbz.mapper.UserMapper">
-    <!--开启本mapper namespace中的二级缓存-->
-    <cache/>
+    <!--开启本mapper namespace中的二级缓存
+    type：指定cache接口的实现类的类型，mybatis默认是有perpetualCache
+    此处整合ehcache
+    -->
+    <cache type="org.mybatis.caches.ehcache.EhcacheCache"/>
     <!--在映射文件中配置很多的sql语句-->
     <!--通过select执行数据库的查询，id：表示映射文件中的sql
     称之为statement的id,将sql语句封装到MappedStatement对象中，所以称之为Statement的id
